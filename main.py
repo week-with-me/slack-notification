@@ -1,7 +1,10 @@
 import json
 
+from worker.slack import Slack
+from config       import TOKEN
+
+
 def lambda_handler(event, context):
-    return {
-        'statusCode': 200,
-        'body': event['body']
-    }
+    body  = json.loads(event['body'])
+    slack = Slack(TOKEN, body)
+    slack.send_message()
