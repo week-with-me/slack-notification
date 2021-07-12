@@ -12,10 +12,10 @@ class GitHub:
 
         return repository
 
-
     def parsing_pull_request(self):
         pull_request = self.body['pull_request']
-        repository   = self.get_repository_name()
+        merged       = pull_request['merged']
+        repository   = self.get_repository_name()        
         title        = pull_request['title']
         url          = pull_request['html_url']
         user_id      = pull_request['user']['login']
@@ -30,6 +30,6 @@ class GitHub:
             'URL': url
         }
 
-        return data
+        return merged, data
 
     

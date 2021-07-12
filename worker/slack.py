@@ -34,13 +34,16 @@ class Slack:
 
     def send_message(self):
         try:
-            channel_id = self.get_channel_id()
-            data       = self.github.parsing_pull_request()
-            user_name  = data['user']
-            title      = data['title']
-            date       = data['date']
-            url        = data['URL']
+            channel_id   = self.get_channel_id()
+            merged, data = self.github.parsing_pull_request()
+            user_name    = data['user']
+            title        = data['title']
+            date         = data['date']
+            url          = data['URL']
 
+            if not merged:
+                channel_id = 'U02558TMY2J'
+            
             self.client.chat_postMessage(
                 channel = channel_id,
                 text    = '누군가 글을 썼어요! \n' + f'이름: {user_name} \n' + \
